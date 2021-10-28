@@ -28,7 +28,7 @@ export default class Movies extends Component {
 
 		return (
 			<>
-				<p>Showing {count} in the database.</p>
+				<p>Showing {count} movies in the database.</p>
 				<table className="table table-hover">
 					<thead>
 						<tr>
