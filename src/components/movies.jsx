@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Like from '../components/common/like';
+import Pagination from './common/pagination';
 import { getMovies } from '../services/fakeMovieService';
+import { paginate } from '../utils/paginate';
 
 export default class Movies extends Component {
 	state = {
-		movies: getMovies()
+		movies: getMovies(),
+		currentPage: 1,
+		pageSize: 4
 	};
 
 	handleDelete = (movie) => {
@@ -17,14 +21,21 @@ export default class Movies extends Component {
 		const index = movies.indexOf(movie);
 		movies[index] = { ...this.state.movies[index] };
 		movies[index].liked = !movies[index].liked;
- 		this.setState({ movies: movies });
+		this.setState({ movies: movies });
+	};
+
+	handlePagination = (page) => {
+		this.setState({ currentPage: page });
 	};
 
 	render() {
 		const { length: count } = this.state.movies;
+		const { pageSize, currentPage, movies: allMovies } = this.state;
 
 		if (count === 0)
 			return <p className="py-3">There is no movies in the database.</p>;
+
+		const movies = paginate(allMovies, currentPage, pageSize);
 
 		return (
 			<>
@@ -41,7 +52,7 @@ export default class Movies extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{this.state.movies.map((movie) => (
+						{movies.map((movie) => (
 							<tr key={movie._id}>
 								<td>{movie.title}</td>
 								<td>{movie.genre.name}</td>
@@ -65,6 +76,12 @@ export default class Movies extends Component {
 						))}
 					</tbody>
 				</table>
+				<Pagination
+					itemsCount={count}
+					pageSize={pageSize}
+					currentPage={currentPage}
+					onPageChange={this.handlePagination}
+				/>
 			</>
 		);
 	}
