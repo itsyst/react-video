@@ -65,6 +65,20 @@ const movies = [
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
     numberInStock: 7,
     dailyRentalRate: 3.5
+  },
+  {
+    _id: "5b21ca3vvb7f6fbid471821",
+    title: "Enter the Dragon",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 5,
+    dailyRentalRate: 4.5
+  },
+  {
+    _id: "5b21ca3ssb7f6fbid471822",
+    title: "Raiders of the Lost Ark",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 5,
+    dailyRentalRate: 4.5
   }
 ];
 
