@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Like = (props) => {
-	const {onLiked} = props
+const Like = ({ liked, onLiked }) => {
 	let classes = 'fa fa-heart';
-	if (!props.liked) classes += '-o';
+	if (!liked) classes += '-o';
 	return (
 		<i
 			onClick={onLiked}
