@@ -3,18 +3,23 @@ import Input from './common/input';
 
 export default class LoginForm extends Component {
 	state = {
-		account: {
-			username: '',
-			password: ''
-		}
+		account: { username: '', password: '' },
+		errors: {}
+	};
+
+	validate = () => {
+		return { username: 'username is required!' };
 	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
 
+		const errors = this.validate();
+		this.setState({ errors });
+		if (errors) return;
+
 		// Call the server
-		const user = this.state.account;
-		console.log('Submitted', user);
+		console.log('Submitted');
 	};
 
 	handleChange = ({ currentTarget: input }) => {
