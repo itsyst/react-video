@@ -85,7 +85,12 @@ export default class LoginForm extends Component {
 						onChange={this.handleChange}
 						error={errors.password}
 					/>
-					<button className="btn btn-primary mt-3">Login</button>
+					<button
+						disabled={this.validate()}
+						className="btn btn-primary mt-3"
+					>
+						Login
+					</button>
 				</form>
 			</div>
 		);
