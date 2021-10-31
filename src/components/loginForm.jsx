@@ -14,13 +14,14 @@ export default class LoginForm extends Component {
 		console.log('Submitted', user);
 	};
 
-	handleChange = (e) => {
+	handleChange = ({ currentTarget: input }) => {
 		const account = { ...this.state.account };
-		account[e.currentTarget.name] = e.currentTarget.value;
+		account[input.name] = input.value;
 		this.setState({ account });
 	};
 
 	render() {
+		const { account } = this.state;
 		return (
 			<div className="container">
 				<h1>Login</h1>
@@ -29,7 +30,7 @@ export default class LoginForm extends Component {
 						<label htmlFor="username">Username</label>
 						<input
 							id="username"
-							value={this.state.account.username}
+							value={account.username}
 							onChange={this.handleChange}
 							name="username"
 							type="text"
@@ -41,7 +42,7 @@ export default class LoginForm extends Component {
 						<label htmlFor="password">Password</label>
 						<input
 							id="password"
-							value={this.state.account.password}
+							value={account.password}
 							onChange={this.handleChange}
 							name="password"
 							type="text"
