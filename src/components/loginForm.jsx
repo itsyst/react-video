@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './common/input';
+import Joi from 'joi';
 
 export default class LoginForm extends Component {
 	state = {
@@ -7,14 +8,18 @@ export default class LoginForm extends Component {
 		errors: {}
 	};
 
+	schema = Joi.object({
+		username: Joi.string().alphanum().min(3).max(30).required(),
+		password: Joi.string()
+			.pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+			.required()
+	});
+
 	validate = () => {
-		const errors = {};
-
-		const { account } = this.state;
-		if (account.username === '') errors.username = 'Username is required.';
-		if (account.password === '') errors.password = 'Password is required.';
-
-		return Object.keys(errors).length === 0 ? null : errors;
+		const result = this.schema.validate(this.state.account, {
+			abortEarly: false
+		});
+		console.log(result);
 	};
 
 	handleSubmit = (e) => {
@@ -28,7 +33,7 @@ export default class LoginForm extends Component {
 		console.log('Submitted');
 	};
 
-	validateProperty = ({name, value}) => {
+	validateProperty = ({ name, value }) => {
 		if (name === 'username') {
 			if (value.trim() === '') return 'Username are required.';
 			//...
