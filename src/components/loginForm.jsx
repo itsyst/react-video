@@ -9,22 +9,24 @@ export default class LoginForm extends Component {
 	};
 
 	schema = Joi.object({
-		username: Joi.string().alphanum().min(3).max(30).required().label('Username'),
-		password: Joi.string().min(6).required().label('Password'),
+		username: Joi.string()
+			.alphanum()
+			.min(3)
+			.max(30)
+			.required()
+			.label('Username'),
+		password: Joi.string().min(6).required().label('Password')
 	});
 
 	validate = () => {
-		const {result} = this.schema.validate(this.state.account, {
+		const { error } = this.schema.validate(this.state.account, {
 			abortEarly: false
 		});
 
-		if (!result.error) return null;
+		if (!error) return null;
 
 		const errors = {};
-		for (let item of result.error.details)
-			errors[item.path[0]] = item.message;
-		console.log(result.error.details);
-
+		for (let item of error.details) errors[item.path[0]] = item.message;
 		return errors;
 	};
 
