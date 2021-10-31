@@ -15,10 +15,10 @@ export default class LoginForm extends Component {
 	};
 
 	handleChange = (e) => {
-		const account = { ...this.state.account }
-		account.username = e.currentTarget.value;
- 	    this.setState({ account });
-	}
+		const account = { ...this.state.account };
+		account[e.currentTarget.name] = e.currentTarget.value;
+		this.setState({ account });
+	};
 
 	render() {
 		return (
@@ -28,19 +28,23 @@ export default class LoginForm extends Component {
 					<div className="form-group">
 						<label htmlFor="username">Username</label>
 						<input
-							autoFocus
+							id="username"
 							value={this.state.account.username}
 							onChange={this.handleChange}
-							id="username"
+							name="username"
 							type="text"
 							className="form-control"
+							autoFocus
 						/>
 					</div>
 					<div className="form-group mb-3">
 						<label htmlFor="password">Password</label>
 						<input
 							id="password"
- 							type="text"
+							value={this.state.account.password}
+							onChange={this.handleChange}
+							name="password"
+							type="text"
 							className="form-control"
 						/>
 					</div>
