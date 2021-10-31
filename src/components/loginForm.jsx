@@ -19,9 +19,8 @@ export default class LoginForm extends Component {
 	});
 
 	validate = () => {
-		const { error } = this.schema.validate(this.state.account, {
-			abortEarly: false
-		});
+		const options = { abortEarly: false };
+		const { error } = this.schema.validate(this.state.account, options);
 
 		if (!error) return null;
 
