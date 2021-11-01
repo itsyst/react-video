@@ -3,7 +3,7 @@ import ListGroup from './common/listGroup';
 import MoviesTable from './moviesTable';
 import Pagination from './common/pagination';
 import { getGenres } from '../services/fakeGenreService';
-import { getMovies } from '../services/fakeMovieService';
+import { getMovies, deleteMovie } from '../services/fakeMovieService';
 import { paginate } from '../utils/paginate';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
@@ -26,6 +26,8 @@ export default class Movies extends Component {
 	handleDelete = (movie) => {
 		const movies = this.state.movies.filter((m) => m._id !== movie._id);
 		this.setState({ movies });
+		
+	    deleteMovie(movie._id);
 	};
 
 	handleLiked = (movie) => {
