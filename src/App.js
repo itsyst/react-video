@@ -4,6 +4,7 @@ import MovieForm from './components/movieForm';
 import Navbar from './components/navbar';
 import NotFound from './components/notFound';
 import LoginForm from './components/loginForm';
+import RegisterForm from './components/registerForm';
 import Rentals from './components/rentals';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
@@ -15,6 +16,7 @@ function App() {
 			<main className="container col-lg-8 p-3 py-md-5">
 				<Switch>
 					<Route path="/login" component={LoginForm} />
+					<Route path="/register" component={RegisterForm} />
 					<Route path="/movies/:id" component={MovieForm} />
 					<Route path="/movies" component={Movies} />
 					<Route path="/customers" component={Customers} />
