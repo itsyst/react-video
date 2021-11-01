@@ -1,10 +1,10 @@
 import React from 'react';
-import Joi from 'joi-browser';
 import Form from './common/form';
+import Joi from 'joi';
 import { getMovie, saveMovie } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 
-class MovieForm extends Form {
+export default class MovieForm extends Form {
 	state = {
 		data: {
 			title: '',
@@ -16,21 +16,22 @@ class MovieForm extends Form {
 		errors: {}
 	};
 
-	schema = {
+	schema = Joi.object({
 		_id: Joi.string(),
-		title: Joi.string().required().label('Title'),
-		genreId: Joi.string().required().label('Genre'),
+		title: Joi.string().min(3).required().label('Title'),
+		genreId: Joi.string().min(3).required().label('Genre'),
 		numberInStock: Joi.number()
-			.required()
+			.integer()
 			.min(0)
 			.max(100)
+			.required()
 			.label('Number in Stock'),
 		dailyRentalRate: Joi.number()
-			.required()
 			.min(0)
 			.max(10)
+			.required()
 			.label('Daily Rental Rate')
-	};
+	});
 
 	componentDidMount() {
 		const genres = getGenres();
@@ -80,5 +81,3 @@ class MovieForm extends Form {
 		);
 	}
 }
-
-export default MovieForm;
