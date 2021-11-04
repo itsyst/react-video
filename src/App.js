@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import Customers from './components/customers';
 import Movies from './components/movies';
 import MovieForm from './components/movieForm';
@@ -12,6 +13,7 @@ import './App.css';
 function App() {
 	return (
 		<div>
+			<ToastContainer />
 			<Navbar />
 			<main className="container col-lg-8 p-3 py-md-5">
 				<Switch>
