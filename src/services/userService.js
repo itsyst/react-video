@@ -11,3 +11,11 @@ export function register(user) {
         name: user.name
     });
 }
+
+export function login(user) {
+    return http.post(apiEndpoint, {
+        email: user.email,
+        password: user.password,
+        name: user.name
+    });
+}
