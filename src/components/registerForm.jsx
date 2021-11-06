@@ -2,17 +2,14 @@ import React from 'react';
 import Form from './common/form';
 import Joi from 'joi';
 import * as userService from '../services/userService';
+import auth from '../services/authService';
 
 export default class RegisterForm extends Form {
 	state = {
 		data: { email: '', password: '', name: '' },
 		errors: {}
 	};
-
-	componentDidMount() {
-		// if (localStorage.getItem('token')) this.props.history.replace('/');
-	}
-
+ 
 	schema = Joi.object({
 		email: Joi.string()
 			.email({
@@ -27,9 +24,8 @@ export default class RegisterForm extends Form {
 	doSubmit = async () => {
 		try {
 			const response = await userService.register(this.state.data);
-			localStorage.setItem('token', response.headers['x-auth-token']);
-			// this.props.history.push('/');
-			window.location = '/';
+			auth.loginWithJwt('token', response.headers['x-auth-token']);
+ 			window.location = '/';
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...this.state.errors };
