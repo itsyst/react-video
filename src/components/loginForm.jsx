@@ -21,9 +21,9 @@ export default class LoginForm extends Form {
 				data.username,
 				data.password
 			);
-		    localStorage.setItem('token', jwt);
-			this.props.history.push('/');
-			
+			localStorage.setItem('token', jwt);
+			// this.props.history.push('/');
+			window.location = '/';
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...this.state.errors };
