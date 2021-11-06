@@ -10,18 +10,20 @@ export default class LoginForm extends Form {
 	};
 
 	schema = Joi.object({
-		username: Joi.string()
-			.min(3)
-			.max(30)
-			.required()
-			.label('Username'),
+		username: Joi.string().min(3).max(30).required().label('Username'),
 		password: Joi.string().min(6).required().label('Password')
 	});
 
 	doSubmit = async () => {
 		try {
 			const { data } = this.state;
-			await authService.login(data.username, data.password);
+			const { data: jwt } = await authService.login(
+				data.username,
+				data.password
+			);
+		    localStorage.setItem('token', jwt);
+			this.props.history.push('/');
+			
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...this.state.errors };
