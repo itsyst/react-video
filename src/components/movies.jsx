@@ -112,6 +112,7 @@ export default class Movies extends Component {
 		const { length: count } = this.state.movies;
 		const { pageSize, currentPage, genres, selectedGenre, sortColumn } =
 			this.state;
+		const { user } = this.props;
 
 		if (count === 0)
 			return <p className="py-3">There is no movies in the database.</p>;
@@ -130,13 +131,15 @@ export default class Movies extends Component {
 					/>
 				</div>
 				<div className="col">
-					<Link
-						to="/movies/new"
-						className="btn btn-primary"
-						style={{ marginBottom: 20 }}
-					>
-						New Movie
-					</Link>
+					{user && (
+						<Link
+							to="/movies/new"
+							className="btn btn-primary"
+							style={{ marginBottom: 20 }}
+						>
+							New Movie
+						</Link>
+					)}
 					<p style={{ marginBottom: -10 }}>
 						Showing {totalCount} movies in the database.
 					</p>
