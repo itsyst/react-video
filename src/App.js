@@ -9,6 +9,7 @@ import NotFound from './components/notFound';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import Rentals from './components/rentals';
+import Logout from './components/logout';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import 'react-toastify/dist/ReactToastify.css'
@@ -41,6 +42,7 @@ export default class App extends Component {
 						<Switch>
 							<Route path="/login" component={LoginForm} />
 							<Route path="/register" component={RegisterForm} />
+							<Route path="/logout" component={Logout} />
 							<Route path="/movies/:id" component={MovieForm} />
 							<Route path="/movies" component={Movies} />
 							<Route path="/customers" component={Customers} />
