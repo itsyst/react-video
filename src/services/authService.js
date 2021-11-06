@@ -3,7 +3,7 @@ import http from './httpService';
 import { apiUrl } from '../config.json';
 
 const apiEndpoint = apiUrl + '/auth';
-const tokenKey = 'token;'
+const tokenKey = 'token'
 
 export async function login(email, password) {
     const { data: jwt } = await http.post(apiEndpoint, { email, password });
@@ -26,10 +26,15 @@ export function logout() {
     localStorage.removeItem(tokenKey);
 }
 
+export function getJwt() {
+    return localStorage.getItem(tokenKey);
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     login,
     loginWithJwt,
     getCurrentUser,
-    logout
+    logout,
+    getJwt
 }
