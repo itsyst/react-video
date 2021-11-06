@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
 import Customers from './components/customers';
 import Movies from './components/movies';
 import MovieForm from './components/movieForm';
@@ -15,8 +16,17 @@ import './App.css';
 
 
 export default class App extends Component {
-	render() {
+	state = {};
 
+	componentDidMount() {
+		try {
+			const jwt = localStorage.getItem('token');
+			const user = jwtDecode(jwt);
+			this.setState({ user });
+		} catch (ex) { }
+	}
+
+	render() {
 		return (
 			<React.Fragment>
 				<Sentry.ErrorBoundary
@@ -26,7 +36,7 @@ export default class App extends Component {
 					}}
 				>
 					<ToastContainer />
-					<Navbar />
+					<Navbar user={this.state.user} />
 					<main className="container col-lg-8 p-3 py-md-5">
 						<Switch>
 							<Route path="/login" component={LoginForm} />
