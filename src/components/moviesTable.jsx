@@ -5,19 +5,14 @@ import { Link } from 'react-router-dom';
 import auth from '../services/authService';
 
 export default class MoviesTable extends Component {
-	state = {};
-
-	componentDidMount() {
-		const user = auth.getCurrentUser();
-		this.setState({ user });
-	}
+	user = auth.getCurrentUser();
 
 	columns = [
 		{
 			path: 'title',
 			label: 'Title',
 			content: (movie) =>
-				this.state.user ? (
+				this.user ? (
 					<Link to={`/movies/${movie._id}`}>{movie.title}</Link>
 				) : (
 					<p>{movie.title}</p>
@@ -38,7 +33,7 @@ export default class MoviesTable extends Component {
 		{
 			key: 'delete',
 			content: (movie) =>
-				this.state.user && (
+				this.user && (
 					<button
 						onClick={() => this.props.onDelete(movie)}
 						className="btn btn-danger"
