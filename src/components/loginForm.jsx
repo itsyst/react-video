@@ -1,6 +1,7 @@
-import React from 'react';
-import Form from './common/form';
 import Joi from 'joi';
+import React from 'react';
+import { Redirect } from 'react-router';
+import Form from './common/form';
 import auth from '../services/authService';
 export default class LoginForm extends Form {
 	state = {
@@ -17,7 +18,8 @@ export default class LoginForm extends Form {
 		try {
 			const { data } = this.state;
 			await auth.login(data.username, data.password);
-			window.location = '/';
+			const { state } = this.props.location;
+			window.location = state ? state.from.pathname : '/';
 		} catch (ex) {
 			if (ex.response && ex.response.status === 400) {
 				const errors = { ...this.state.errors };
@@ -28,6 +30,8 @@ export default class LoginForm extends Form {
 	};
 
 	render() {
+		if (auth.getCurrentUser()) return <Redirect to="/" />;
+
 		return (
 			<div className="container">
 				<h1>Login</h1>
